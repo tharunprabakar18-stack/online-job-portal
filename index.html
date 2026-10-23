@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerSpring - Curated Tech & Creative Job Opportunities</title>
+  <meta name="description" content="CareerSpring is a minimalist, editorial career platform featuring curated roles across engineering, product, design, and marketing with real-time application tracking and employer tools.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Simulation Disclaimer Bar -->
+  <div class="simulation-banner">
+    <div class="banner-inner">
+      <span class="banner-badge">DEMONSTRATION PORTAL</span>
+      <p>CareerSpring is a simulated employment software platform. Vacancies, companies, and candidate applications are for demonstration and academic testing only.</p>
+    </div>
+  </div>
+
+  <!-- Main Portal Layout -->
+  <div class="spring-app">
+
+    <!-- Minimalist Editorial Topbar -->
+    <header class="spring-header">
+      <div class="header-inner">
+        
+        <div class="header-left">
+          <button class="mobile-toggle" id="mobileMenuBtn" aria-label="Toggle navigation">
+            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+
+          <a href="#" class="brand-link" id="brandLogo">
+            <span class="brand-glyph"></span>
+            <span class="brand-name">CAREER<span>/SPRING</span></span>
+          </a>
+        </div>
+
+        <!-- Center Nav Links -->
+        <nav class="header-nav" id="mainNav">
+          <button class="nav-item active" data-tab="explore" id="tabExplore">
+            <span>Explore Roles</span>
+          </button>
+          <button class="nav-item" data-tab="saved" id="tabSaved">
+            <span>Saved Jobs</span>
+            <span class="nav-count-pill" id="badgeSavedCount">0</span>
+          </button>
+          <button class="nav-item" data-tab="applications" id="tabApplications">
+            <span>My Applications</span>
+            <span class="nav-count-pill pill-lime" id="badgeApplicationsCount">0</span>
+          </button>
+          <button class="nav-item" data-tab="employer" id="tabEmployer">
+            <span>Employer Studio</span>
+          </button>
+        </nav>
+
+        <!-- Right Action Button -->
+        <div class="header-right">
+          <button class="btn btn-secondary-minimal btn-sm" id="btnExportCSV">
+            <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span>Export CSV</span>
+          </button>
+
+          <button class="btn btn-lime" id="btnTopPostJob">
+            <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2.5" fill="none">
+              <line x1="12" y1="5" x2="12" y2="19"/>
+              <line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            <span>Post a Job</span>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <!-- Main Workspace Stage -->
+    <main class="spring-main">
+
+      <!-- View 1: Explore Jobs (Default View) -->
+      <section class="portal-pane active" id="view-explore">
+        
+        <!-- Clean Hero Search Bar -->
+        <div class="hero-search-strip">
+          <div class="search-strip-inner">
+            <div class="search-field flex-2">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                <circle cx="11" cy="11" r="8"/>
+                <path d="m21 21-4.3-4.3"/>
+              </svg>
+              <input type="text" id="jobSearchKeyword" placeholder="Job title, engineering stack, or company name...">
+            </div>
+
+            <div class="search-divider"></div>
+
+            <div class="search-field flex-1">
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none">
+                <path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              <select id="quickLocationFilter" class="ghost-select">
+                <option value="ALL">All Locations & Remote</option>
+                <option value="Remote">Remote Worldwide</option>
+                <option value="San Francisco, CA">San Francisco, CA</option>
+                <option value="New York, NY">New York, NY</option>
+                <option value="London, UK">London, UK</option>
+                <option value="Berlin, Germany">Berlin, Germany</option>
+                <option value="Austin, TX">Austin, TX</option>
+              </select>
+            </div>
+
+            <button class="btn btn-black btn-search" id="btnExecuteSearch">
+              <span>Find Open Roles &rarr;</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Two Column Explorer Layout -->
+        <div class="explorer-grid">
+          
+          <!-- Left Filter Sidebar -->
+          <aside class="filter-sidebar">
+            <div class="sidebar-box">
+              <div class="sidebar-box-header">
+                <h3>Filter Positions</h3>
+                <button class="btn-clear-filters" id="btnResetAllFilters">Reset</button>
+              </div>
+
+              <!-- Filter: Department Category -->
+              <div class="filter-group">
+                <span class="filter-label">Job Category</span>
+                <div class="checkbox-list" id="categoryFilterList">
+                  <label class="custom-check">
+                    <input type="radio" name="filterCategory" value="ALL" checked>
+                    <span>All Disciplines</span>
+                  </label>
+                  <label class="custom-check">
+                    <input type="radio" name="filterCategory" value="Engineering">
+                    <span>Engineering & Dev</span>
+                  </label>
+                  <label class="custom-check">
+                    <input type="radio" name="filterCategory" value="Design & Creative">
+                    <span>Design & Creative</span>
+                  </label>
+                  <label class="custom-check">
+                    <input type="radio" name="filterCategory" value="Product Management">
+                    <span>Product Management</span>
+                  </label>
+                  <label class="custom-check">
+                    <input type="radio" name="filterCategory" value="Marketing & Growth">
+                    <span>Marketing & Growth</span>
+                  </label>
+                  <label class="custom-check">
+                    <input type="radio" name="filterCategory" value="Data & AI">
+                    <span>Data & AI Research</span>
+                  </label>
+                  <label class="custom-check">
+                    <input type="radio" name="filterCategory" value="Finance & Operations">
+                    <span>Finance & Ops</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="filter-divider"></div>
+
+              <!-- Filter: Job Type -->
+              <div class="filter-group">
+                <span class="filter-label">Employment Type</span>
+                <div class="checkbox-list">
+                  <label class="custom-check">
+                    <input type="radio" name="filterJobType" value="ALL" checked>
+                    <span>All Types</span>
+                  </label>
+                  <label class="custom-check">
+                    <input type="radio" name="filterJobType" value="Full-Time">
+                    <span>Full-Time Contract</span>
+                  </label>
+                  <label class="custom-check">
+                    <input type="radio" name="filterJobType" value="Contract">
+                    <span>Freelance / Contract</span>
+                  </label>
+                  <label class="custom-check">
+                    <input type="radio" name="filterJobType" value="Part-Time">
+                    <span>Part-Time</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="filter-divider"></div>
+
+              <!-- Filter: Work Arrangement -->
+              <div class="filter-group">
+                <span class="filter-label">Workplace Model</span>
+                <div class="checkbox-list">
+                  <label class="custom-check">
+                    <input type="radio" name="filterWorkplace" value="ALL" checked>
+                    <span>Any Workplace</span>
+                  </label>
+                  <label class="custom-check">
+                    <input type="radio" name="filterWorkplace" value="Remote">
+                    <span>100% Remote</span>
+                  </label>
+                  <label class="custom-check">
+                    <input type="radio" name="filterWorkplace" value="Hybrid">
+                    <span>Hybrid (Flexible)</span>
+                  </label>
+                  <label class="custom-check">
+                    <input type="radio" name="filterWorkplace" value="On-Site">
+                    <span>On-Site Studio</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Quick Demo Reset -->
+              <div class="sidebar-footer-box">
+                <button class="btn-subtle-reset" id="btnResetDemoJobs">
+                  <svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2" fill="none">
+                    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
+                    <path d="M21 3v5h-5"/>
+                    <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
+                    <path d="M8 16H3v5"/>
+                  </svg>
+                  <span>Reset Demo Jobs</span>
+                </button>
+              </div>
+
+            </div>
+          </aside>
+
+          <!-- Right Job Feed Stream -->
+          <div class="jobs-feed-column">
+            
+            <!-- Feed Subheader -->
+            <div class="feed-header">
+              <div class="feed-count-wrap">
+                <h2 class="feed-heading" id="feedTitle">Available Positions</h2>
+                <span class="feed-meta-count" id="jobsResultCount">8 Roles Open</span>
+              </div>
+
+              <div class="feed-sort-wrap">
+                <label for="sortBySelect" class="text-dim">Sort by:</label>
+                <select id="sortBySelect" class="minimal-sort-select">
+                  <option value="newest">Latest Posted</option>
+                  <option value="salary_desc">Highest Salary</option>
+                  <option value="title_asc">Role Title (A-Z)</option>
+                  <option value="company_asc">Company Name</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Job Cards Stream -->
+            <div class="job-cards-list" id="jobCardsList">
+              <!-- Dynamically populated via JS -->
+            </div>
+
+            <!-- Empty State -->
+            <div class="empty-state-editorial hidden" id="jobsEmptyState">
+              <div class="empty-monogram">&#8856;</div>
+              <h3>No Matches Found</h3>
+              <p>We couldn't find any job opportunities matching your active filters or keyword search.</p>
+              <button class="btn btn-black btn-sm" id="btnEmptyReset">Clear Active Filters</button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <!-- View 2: Saved Jobs -->
+      <section class="portal-pane" id="view-saved">
+        <div class="panel-header-editorial">
+          <div>
+            <h2 class="panel-title">Saved Opportunities</h2>
+            <p class="panel-subtitle">Your bookmarked positions stored locally in your private session</p>
+          </div>
+          <button class="btn btn-secondary-minimal btn-sm" onclick="switchTab('explore')">&larr; Back to Search</button>
+        </div>
+
+        <div class="job-cards-list" id="savedJobsList">
+          <!-- Dynamically populated via JS -->
+        </div>
+
+        <div class="empty-state-editorial hidden" id="savedEmptyState">
+          <div class="empty-monogram">&#9734;</div>
+          <h3>No Saved Jobs Yet</h3>
+          <p>Click the bookmark star on any job card to save it for quick reference.</p>
+          <button class="btn btn-lime btn-sm" onclick="switchTab('explore')">Browse Open Roles</button>
+        </div>
+      </section>
+
+      <!-- View 3: My Applications & Status Tracking -->
+      <section class="portal-pane" id="view-applications">
+        <div class="panel-header-editorial">
+          <div>
+            <h2 class="panel-title">Submitted Applications</h2>
+            <p class="panel-subtitle">Track your candidate status across active job applications</p>
+          </div>
+          <div class="flex-align-gap">
+            <button class="btn btn-secondary-minimal btn-sm" id="btnExportAppsCSV">
+              <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+              <span>Export Applications CSV</span>
+            </button>
+            <button class="btn btn-black btn-sm" onclick="switchTab('explore')">+ Apply for More</button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="editorial-table">
+            <thead>
+              <tr>
+                <th>App Reference</th>
+                <th>Role & Company</th>
+                <th>Applicant Email</th>
+                <th>Applied Date</th>
+                <th>Candidate Status</th>
+                <th class="text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="applicationsTableBody">
+              <!-- Dynamically populated via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="empty-state-editorial hidden" id="applicationsEmptyState">
+          <div class="empty-monogram">&#9993;</div>
+          <h3>No Active Applications</h3>
+          <p>You haven't submitted any job applications in this session yet.</p>
+          <button class="btn btn-lime btn-sm" onclick="switchTab('explore')">Explore & Apply</button>
+        </div>
+      </section>
+
+      <!-- View 4: Employer Studio (Demo Admin Panel) -->
+      <section class="portal-pane" id="view-employer">
+        <div class="panel-header-editorial">
+          <div>
+            <h2 class="panel-title">Employer Studio & Postings</h2>
+            <p class="panel-subtitle">Manage demo job listings, review applicant counts, and publish new vacancies</p>
+          </div>
+          <button class="btn btn-lime btn-sm" id="btnStudioNewJob">+ Publish New Role</button>
+        </div>
+
+        <!-- Employer Job Cards Management Table -->
+        <div class="table-responsive">
+          <table class="editorial-table">
+            <thead>
+              <tr>
+                <th>Job ID</th>
+                <th>Position Title</th>
+                <th>Company</th>
+                <th>Location</th>
+                <th>Type</th>
+                <th>Salary Range</th>
+                <th>Applicants</th>
+                <th class="text-right">Management</th>
+              </tr>
+            </thead>
+            <tbody id="employerTableBody">
+              <!-- Dynamically populated via JS -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- MODAL: JOB DETAILS DRAWER                                         -->
+  <!-- ================================================================= -->
+  <div class="modal-backdrop" id="jobDetailModal">
+    <div class="modal-sheet modal-lg">
+      <div class="sheet-header">
+        <div class="sheet-top-meta">
+          <span class="company-tag" id="detailCompanyTag">STRIPE</span>
+          <span class="font-mono text-dim" id="detailJobId">JOB-2026-101</span>
+        </div>
+        <div class="sheet-title-row">
+          <h2 class="sheet-job-title" id="detailJobTitle">Staff Systems Engineer (Distributed Infra)</h2>
+          <button class="modal-close-btn" id="btnCloseDetailModal">&times;</button>
+        </div>
+        <div class="sheet-meta-badges" id="detailMetaBadges">
+          <!-- Injected via JS -->
+        </div>
+      </div>
+
+      <div class="sheet-body">
+        
+        <!-- Key Quick Summary Strip -->
+        <div class="detail-summary-strip">
+          <div class="summary-col">
+            <span class="label">Annual Compensation</span>
+            <strong class="font-mono text-black" id="detailSalary">$190,000 - $240,000 / yr</strong>
+          </div>
+          <div class="summary-col">
+            <span class="label">Workplace Model</span>
+            <strong id="detailWorkplace">100% Remote</strong>
+          </div>
+          <div class="summary-col">
+            <span class="label">Department</span>
+            <strong id="detailCategory">Engineering</strong>
+          </div>
+          <div class="summary-col">
+            <span class="label">Date Posted</span>
+            <strong id="detailDatePosted">Oct 20, 2026</strong>
+          </div>
+        </div>
+
+        <!-- Description Content Blocks -->
+        <div class="editorial-desc-section">
+          <h3>Position Overview</h3>
+          <p id="detailOverviewText">Overview paragraph...</p>
+        </div>
+
+        <div class="editorial-desc-section">
+          <h3>Core Responsibilities</h3>
+          <ul class="editorial-list" id="detailResponsibilitiesList">
+            <!-- Injected via JS -->
+          </ul>
+        </div>
+
+        <div class="editorial-desc-section">
+          <h3>Qualifications & Experience</h3>
+          <ul class="editorial-list" id="detailRequirementsList">
+            <!-- Injected via JS -->
+          </ul>
+        </div>
+
+        <div class="editorial-desc-section">
+          <h3>Perks & Benefits</h3>
+          <div class="benefits-cloud" id="detailBenefitsCloud">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <div class="sheet-footer">
+        <button class="btn btn-secondary-minimal" id="btnDetailSaveBookmark">
+          <span id="detailBookmarkIcon">&#9734;</span>
+          <span id="detailBookmarkText">Bookmark Job</span>
+        </button>
+        <button class="btn btn-lime" id="btnDetailApplyCTA">
+          <span>Apply for this Role &rarr;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- MODAL: APPLICATION SUBMISSION (WITH DUPLICATE PREVENTION)         -->
+  <!-- ================================================================= -->
+  <div class="modal-backdrop" id="applicationModal">
+    <div class="modal-sheet">
+      <div class="sheet-header">
+        <div class="sheet-top-meta">
+          <span class="badge-app-pill">CANDIDATE APPLICATION</span>
+        </div>
+        <div class="sheet-title-row">
+          <div>
+            <h2 class="sheet-job-title" id="applyModalJobTitle">Apply for Role</h2>
+            <p class="text-dim text-sm" id="applyModalCompany">Company Name</p>
+          </div>
+          <button class="modal-close-btn" id="btnCloseApplyModal">&times;</button>
+        </div>
+      </div>
+
+      <form id="jobApplicationForm" novalidate>
+        <input type="hidden" id="applyJobId">
+
+        <div class="sheet-body">
+          
+          <div class="form-grid">
+            <div class="form-group span-2">
+              <label for="applicantName">Full Name <span class="req">*</span></label>
+              <input type="text" id="applicantName" placeholder="e.g. Jordan Rivera" required>
+              <span class="field-error" id="errApplicantName"></span>
+            </div>
+
+            <div class="form-group span-2">
+              <label for="applicantEmail">Email Address (Duplicate Check Key) <span class="req">*</span></label>
+              <input type="email" id="applicantEmail" placeholder="jordan.rivera@example.com" required>
+              <span class="field-error" id="errApplicantEmail"></span>
+              <small class="field-hint">Note: Duplicate applications for the same role using this email are blocked.</small>
+            </div>
+
+            <div class="form-group">
+              <label for="applicantPhone">Phone Number <span class="req">*</span></label>
+              <input type="tel" id="applicantPhone" placeholder="+1 (555) 782-9014" required>
+              <span class="field-error" id="errApplicantPhone"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="applicantPortfolio">Portfolio / GitHub / LinkedIn</label>
+              <input type="url" id="applicantPortfolio" placeholder="https://github.com/username">
+            </div>
+
+            <div class="form-group span-2">
+              <label for="applicantExperience">Years of Relevant Experience <span class="req">*</span></label>
+              <select id="applicantExperience" required>
+                <option value="1-3 Years">1 - 3 Years (Junior / Mid-Level)</option>
+                <option value="4-6 Years" selected>4 - 6 Years (Senior / Specialist)</option>
+                <option value="7+ Years">7+ Years (Staff / Lead / Principal)</option>
+              </select>
+            </div>
+
+            <div class="form-group span-2">
+              <label for="applicantCoverNote">Cover Note / Why You're a Great Fit <span class="req">*</span></label>
+              <textarea id="applicantCoverNote" rows="3" placeholder="Briefly describe your experience, relevant projects, and why this role excites you..." required></textarea>
+              <span class="field-error" id="errApplicantCoverNote"></span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="sheet-footer">
+          <button type="button" class="btn btn-secondary-minimal" id="btnCancelApplyModal">Cancel</button>
+          <button type="submit" class="btn btn-lime" id="btnSubmitApplication">
+            <span>Submit Candidate Application</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- MODAL: EMPLOYER PANEL (ADD / EDIT JOB LISTING)                    -->
+  <!-- ================================================================= -->
+  <div class="modal-backdrop" id="employerJobModal">
+    <div class="modal-sheet modal-lg">
+      <div class="sheet-header">
+        <div class="sheet-title-row">
+          <div>
+            <h2 class="sheet-job-title" id="employerModalTitle">Post New Opportunity</h2>
+            <p class="text-dim text-sm">Publish or edit a role in the CareerSpring live directory</p>
+          </div>
+          <button class="modal-close-btn" id="btnCloseEmployerModal">&times;</button>
+        </div>
+      </div>
+
+      <form id="employerJobForm" novalidate>
+        <input type="hidden" id="employerJobId">
+
+        <div class="sheet-body">
+          <div class="form-grid">
+            
+            <div class="form-group span-2">
+              <label for="jobTitleInput">Role Title <span class="req">*</span></label>
+              <input type="text" id="jobTitleInput" placeholder="e.g. Lead Product Designer" required>
+              <span class="field-error" id="errJobTitle"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="companyInput">Company / Organization <span class="req">*</span></label>
+              <input type="text" id="companyInput" placeholder="e.g. Vercel, Figma" required>
+              <span class="field-error" id="errCompany"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="locationInput">Primary Location <span class="req">*</span></label>
+              <input type="text" id="locationInput" placeholder="e.g. San Francisco, CA or Remote" required>
+              <span class="field-error" id="errLocation"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="categoryInput">Discipline / Category <span class="req">*</span></label>
+              <select id="categoryInput" required>
+                <option value="Engineering">Engineering</option>
+                <option value="Design & Creative">Design & Creative</option>
+                <option value="Product Management">Product Management</option>
+                <option value="Marketing & Growth">Marketing & Growth</option>
+                <option value="Data & AI">Data & AI</option>
+                <option value="Finance & Operations">Finance & Operations</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="jobTypeInput">Employment Type <span class="req">*</span></label>
+              <select id="jobTypeInput" required>
+                <option value="Full-Time">Full-Time</option>
+                <option value="Contract">Contract</option>
+                <option value="Part-Time">Part-Time</option>
+                <option value="Internship">Internship</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="workplaceInput">Workplace Model <span class="req">*</span></label>
+              <select id="workplaceInput" required>
+                <option value="Remote">100% Remote</option>
+                <option value="Hybrid">Hybrid (Flexible)</option>
+                <option value="On-Site">On-Site Studio</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="salaryInput">Compensation Range <span class="req">*</span></label>
+              <input type="text" id="salaryInput" placeholder="e.g. $140,000 - $180,000 / yr" required>
+              <span class="field-error" id="errSalary"></span>
+            </div>
+
+            <div class="form-group span-2">
+              <label for="overviewInput">Role Overview <span class="req">*</span></label>
+              <textarea id="overviewInput" rows="3" placeholder="Provide a summary of the team, mission, and opportunity..." required></textarea>
+              <span class="field-error" id="errOverview"></span>
+            </div>
+
+            <div class="form-group span-2">
+              <label for="requirementsInput">Requirements / Key Skills (One item per line)</label>
+              <textarea id="requirementsInput" rows="3" placeholder="5+ years experience with React and TypeScript&#10;Deep understanding of distributed state management&#10;Track record of shipping production web applications"></textarea>
+            </div>
+
+            <div class="form-group span-2">
+              <label for="tagsInput">Skills & Keyword Tags (Comma separated)</label>
+              <input type="text" id="tagsInput" placeholder="TypeScript, React, Node.js, GraphQL, Senior">
+            </div>
+
+          </div>
+        </div>
+
+        <div class="sheet-footer">
+          <button type="button" class="btn btn-secondary-minimal" id="btnCancelEmployerModal">Cancel</button>
+          <button type="submit" class="btn btn-lime" id="btnSaveEmployerJob">
+            <span>Publish Job Listing</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Stack -->
+  <div class="toast-stack" id="toastContainer"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
